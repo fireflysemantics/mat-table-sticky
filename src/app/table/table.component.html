@@ -1,0 +1,38 @@
+<div class="table-container">
+
+    <mat-table class="mat-elevation-z8"
+        [dataSource]="dataSource"
+        matSort>
+
+        <ng-container *ngFor="let c of COLUMNS"
+            matColumnDef="{{c}}"
+            [sticky]="isSticky(c)">
+            <mat-header-cell *matHeaderCellDef
+                mat-sort-header>{{c}}</mat-header-cell>
+            <mat-cell *matCellDef="let row;">{{row[c]}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="loading">
+            <mat-footer-cell *matFooterCellDef
+                colspan="7">
+                <mat-progress-bar mode="buffer"></mat-progress-bar>
+            </mat-footer-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="nohistory">
+            <mat-footer-cell *matFooterCellDef
+                colspan="6">
+                No Safety Stock Data
+            </mat-footer-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="COLUMNS">
+        </mat-header-row>
+
+        <mat-row *matRowDef="let row; columns: COLUMNS"></mat-row>
+
+    </mat-table>
+</div>
+<mat-paginator [pageSizeOptions]="[5, 10, 50, 100, 500, 1000]"
+    [pageSize]="5"
+    showFirstLastButtons></mat-paginator>
